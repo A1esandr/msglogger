@@ -40,6 +40,10 @@ func (a *App) Start() {
 	}
 
 	for update := range updates {
+		if update.ChannelPost != nil && update.ChannelPost.Chat != nil {
+			log.Println("Chat", update.ChannelPost.Chat.Title)
+			log.Println("Chat ID", update.ChannelPost.Chat.ID)
+		}
 		log.Println(update)
 	}
 }
