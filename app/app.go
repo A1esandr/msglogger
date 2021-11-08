@@ -1,11 +1,16 @@
 package app
 
 import (
+	_ "embed"
 	"fmt"
-	"github.com/go-telegram-bot-api/telegram-bot-api"
 	"log"
 	"os"
+
+	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 )
+
+//go:embed token.txt
+var embedToken string
 
 type (
 	App struct {
@@ -19,6 +24,9 @@ func NewApp() *App {
 
 func (a *App) Start() {
 	a.token = os.Getenv("TOKEN")
+	if a.token == "" {
+		a.token = embedToken
+	}
 	if a.token == "" {
 		log.Panic("token is empty!")
 	}
